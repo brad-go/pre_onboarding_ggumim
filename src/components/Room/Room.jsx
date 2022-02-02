@@ -1,6 +1,7 @@
 import { getAPI } from "@api";
 import { useState, useEffect } from "react";
 import { TooltipList } from "@components/ProductTooltip/index";
+import { Swiper } from "@components/ProductSwiper/index";
 import styled from "styled-components";
 
 const Room = () => {
@@ -54,7 +55,9 @@ const Room = () => {
         />
         <TooltipList item={item} onClick={handleTagSelect} />
       </RoomWrapper>
-      <RoomSwiper></RoomSwiper>
+      <RoomSwiper>
+        <Swiper item={item.productList} />
+      </RoomSwiper>
     </RoomContainer>
   );
 };

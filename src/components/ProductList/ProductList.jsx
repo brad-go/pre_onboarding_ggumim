@@ -3,16 +3,19 @@ import styled from "styled-components";
 
 const ProductList = ({ item, onClick }) => {
   const { productList } = item;
+  console.log(productList);
 
   const products = productList.map((product) => {
     const { pointX, pointY, selected } = product;
+    const posX = pointX * 1.6;
+    const posY = pointY * 1.7;
 
     return (
       <Product
         key={product.productId}
         id={product.productId}
-        pointX={pointX}
-        pointY={pointY}
+        pointX={posX}
+        pointY={product.productId === 127757 ? posY * 0.96 : posY}
         onClick={onClick}
       >
         <TagImg
@@ -30,6 +33,8 @@ const ProductList = ({ item, onClick }) => {
             name={product.productName}
             imageUrl={product.imageUrl}
             outside={product.outside}
+            pointX={posX}
+            pointY={posY}
             priceDiscount={product.priceDiscount}
             discountRate={product.discountRate}
           />
@@ -43,8 +48,8 @@ const ProductList = ({ item, onClick }) => {
 
 const Product = styled.div`
   position: absolute;
-  top: ${(props) => props.pointY}px;
-  left: ${(props) => props.pointX}px;
+  top: ${(props) => props.pointX}px;
+  left: ${(props) => props.pointY}px;
 `;
 
 const TagImg = styled.img`

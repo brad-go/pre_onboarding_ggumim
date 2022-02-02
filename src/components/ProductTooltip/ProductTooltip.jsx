@@ -1,16 +1,20 @@
 import { numberWithCommas } from "@utils/constants";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const ProductTooltip = ({
   id,
   imageUrl,
   name,
   outside,
+  pointX,
+  pointY,
   discountRate,
   priceDiscount,
 }) => {
+  console.log(name, pointX, pointY);
+
   return (
-    <Tooltip id={id}>
+    <Tooltip id={id} pointX={pointX} pointY={pointY}>
       <ProductImg style={{ backgroundImage: `url(${imageUrl})` }} />
       <ProductInfo>
         <FurnitureName>{name}</FurnitureName>
@@ -37,8 +41,16 @@ const ProductTooltip = ({
 
 const Tooltip = styled.div`
   position: absolute;
-  top: 28px;
-  left: -20px;
+  ${(props) =>
+    props.pointX > 500
+      ? css`
+          top: unset;
+          bottom: 46px;
+        `
+      : css`
+          top: 28px;
+        `}
+  left: ${(props) => (props.pointY > 400 ? -160 : -20)}px;
   display: flex;
   align-items: center;
   width: 220px;
@@ -53,8 +65,25 @@ const Tooltip = styled.div`
   &:before {
     content: "";
     position: absolute;
-    top: -8px;
-    left: 34px;
+    ${(props) =>
+      props.pointX > 500
+        ? css`
+            top: unset;
+            bottom: -8px;
+            transform: rotate(180deg);
+          `
+        : css`
+            top: -8px;
+          `}
+    ${(props) =>
+      props.pointY > 400
+        ? css`
+            left: unset;
+            right: 38px;
+          `
+        : css`
+            left: 31px;
+          `}
     width: 12px;
     height: 8px;
     background-image: url(//cdn.ggumim.co.kr/storage/20211118152728RO3OXnhkrC.png);

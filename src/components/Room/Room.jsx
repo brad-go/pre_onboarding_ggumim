@@ -25,7 +25,7 @@ const Room = () => {
   useEffect(() => {
     const getData = async () => {
       const { id, imageUrl, productList } = await getAPI();
-      const list = productList.map((product) => ({
+      const list = productList.reverse().map((product) => ({
         ...product,
         selected: false,
       }));
@@ -35,15 +35,31 @@ const Room = () => {
   }, []);
 
   return (
-    <Roombox>
-      <ProductList item={item} onClick={handleTagSelect} />
-    </Roombox>
+    <RoomContainer>
+      <RoomWrapper>
+        <RoomImg src={item.imageUrl} alt="" />
+        <ProductList item={item} onClick={handleTagSelect} />
+      </RoomWrapper>
+    </RoomContainer>
   );
 };
 
-const Roombox = styled.div`
-  width: 100%;
-  height: 100%;
+const RoomContainer = styled.div`
+  width: 800px;
+  margin: 0 auto;
+  padding: 40px 0;
+  font-size: 0;
+  box-sizing: border-box;
+`;
+
+const RoomWrapper = styled.div`
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+`;
+
+const RoomImg = styled.img`
+  width: 800px;
 `;
 
 export default Room;

@@ -22,6 +22,16 @@ const Room = () => {
     }));
   };
 
+  const handleTagSelectReset = (e) => {
+    setItem((prev) => ({
+      ...prev,
+      productList: prev.productList.map((product) => ({
+        ...product,
+        selected: false,
+      })),
+    }));
+  };
+
   useEffect(() => {
     const getData = async () => {
       const { id, imageUrl, productList } = await getAPI();
@@ -37,7 +47,11 @@ const Room = () => {
   return (
     <RoomContainer>
       <RoomWrapper>
-        <RoomImg src={item.imageUrl} alt="" />
+        <RoomImg
+          src={item.imageUrl}
+          alt="방사진"
+          onClick={handleTagSelectReset}
+        />
         <TooltipList item={item} onClick={handleTagSelect} />
       </RoomWrapper>
       <RoomSwiper></RoomSwiper>

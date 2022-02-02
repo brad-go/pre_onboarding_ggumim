@@ -1,5 +1,6 @@
 import { Tooltip } from "@components/ProductTooltip/index.js";
 import styled from "styled-components";
+import { TAG_ICON, TAG_ICON_CLOSE } from "@utils/constants";
 
 const TooltipList = ({ item, onClick }) => {
   const { productList } = item;
@@ -17,15 +18,7 @@ const TooltipList = ({ item, onClick }) => {
         pointY={product.productId === 127757 ? posY * 0.96 : posY}
         onClick={onClick}
       >
-        <TagImg
-          src={
-            selected
-              ? "//cdn.ggumim.co.kr/storage/20211029145330GwwumnWNSs.png"
-              : "//cdn.ggumim.co.kr/storage/20211029145238AlZrQ41xtg.png"
-          }
-          width="32"
-          height="32"
-        />
+        <TagImg src={selected ? TAG_ICON : TAG_ICON_CLOSE} />
         {selected && (
           <Tooltip
             id={product.productId}
@@ -49,9 +42,14 @@ const ProductTag = styled.div`
   position: absolute;
   top: ${(props) => props.pointX}px;
   left: ${(props) => props.pointY}px;
+  display: block;
+  cursor: pointer;
+  z-index: 100;
 `;
 
 const TagImg = styled.img`
+  width: 32px;
+  height: 32px;
   pointer-events: none;
 `;
 

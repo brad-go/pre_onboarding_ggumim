@@ -1,4 +1,4 @@
-import { numberWithCommas } from "@utils/constants";
+import { numberWithCommas, MOVE_ARROW, TOOLTIP_ARROW } from "@utils/constants";
 import styled, { css } from "styled-components";
 
 const Tooltip = ({
@@ -11,8 +11,6 @@ const Tooltip = ({
   discountRate,
   priceDiscount,
 }) => {
-  console.log(name, pointX, pointY);
-
   return (
     <TooltipContainer id={id} pointX={pointX} pointY={pointY}>
       <ProductImg style={{ backgroundImage: `url(${imageUrl})` }} />
@@ -30,10 +28,7 @@ const Tooltip = ({
         </FurniturePrice>
       </ProductInfo>
       <MoveIconWrapper>
-        <MoveIcon
-          src="//cdn.ggumim.co.kr/storage/20211102181936xqHzyWAmb8.png"
-          alt="상품보기"
-        />
+        <MoveIcon src={MOVE_ARROW} alt="상품보기" />
       </MoveIconWrapper>
     </TooltipContainer>
   );
@@ -86,10 +81,10 @@ const TooltipContainer = styled.div`
           `}
     width: 12px;
     height: 8px;
-    background-image: url(//cdn.ggumim.co.kr/storage/20211118152728RO3OXnhkrC.png);
+    background-image: url(${TOOLTIP_ARROW});
     background-size: cover;
     background-repeat: no-repeat;
-    z-index: 1100;
+    z-index: 1000;
   }
 `;
 
@@ -105,7 +100,7 @@ const ProductImg = styled.div`
 
 const ProductInfo = styled.div`
   display: flex;
-  // flex: 1;
+  flex: 1;
   flex-direction: column;
   justify-content: space-between;
   height: 100%;

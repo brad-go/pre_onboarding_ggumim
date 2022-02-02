@@ -1,6 +1,6 @@
 import { getAPI } from "@api";
 import { useState, useEffect } from "react";
-import { ProductList } from "@components/index";
+import { TooltipList } from "@components/ProductTooltip/index";
 import styled from "styled-components";
 
 const Room = () => {
@@ -38,8 +38,9 @@ const Room = () => {
     <RoomContainer>
       <RoomWrapper>
         <RoomImg src={item.imageUrl} alt="" />
-        <ProductList item={item} onClick={handleTagSelect} />
+        <TooltipList item={item} onClick={handleTagSelect} />
       </RoomWrapper>
+      <RoomSwiper></RoomSwiper>
     </RoomContainer>
   );
 };
@@ -60,6 +61,15 @@ const RoomWrapper = styled.div`
 
 const RoomImg = styled.img`
   width: 800px;
+`;
+
+const RoomSwiper = styled.div`
+  display: flex;
+  align-items: center;
+  overflow-y: hidden;
+  overflow-x: auto;
+  padding: 0 10px;
+  // touch-action: pan-y;
 `;
 
 export default Room;

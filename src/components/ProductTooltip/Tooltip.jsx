@@ -1,7 +1,7 @@
 import { numberWithCommas } from "@utils/constants";
 import styled, { css } from "styled-components";
 
-const ProductTooltip = ({
+const Tooltip = ({
   id,
   imageUrl,
   name,
@@ -14,7 +14,7 @@ const ProductTooltip = ({
   console.log(name, pointX, pointY);
 
   return (
-    <Tooltip id={id} pointX={pointX} pointY={pointY}>
+    <TooltipContainer id={id} pointX={pointX} pointY={pointY}>
       <ProductImg style={{ backgroundImage: `url(${imageUrl})` }} />
       <ProductInfo>
         <FurnitureName>{name}</FurnitureName>
@@ -35,11 +35,11 @@ const ProductTooltip = ({
           alt="상품보기"
         />
       </MoveIconWrapper>
-    </Tooltip>
+    </TooltipContainer>
   );
 };
 
-const Tooltip = styled.div`
+const TooltipContainer = styled.div`
   position: absolute;
   ${(props) =>
     props.pointX > 500
@@ -163,4 +163,4 @@ const MoveIcon = styled.img`
   height: 20px;
 `;
 
-export default ProductTooltip;
+export default Tooltip;

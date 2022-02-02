@@ -1,9 +1,8 @@
-import { ProductTooltip } from "@components/index.js";
+import { Tooltip } from "@components/ProductTooltip/index.js";
 import styled from "styled-components";
 
-const ProductList = ({ item, onClick }) => {
+const TooltipList = ({ item, onClick }) => {
   const { productList } = item;
-  console.log(productList);
 
   const products = productList.map((product) => {
     const { pointX, pointY, selected } = product;
@@ -11,7 +10,7 @@ const ProductList = ({ item, onClick }) => {
     const posY = pointY * 1.7;
 
     return (
-      <Product
+      <ProductTag
         key={product.productId}
         id={product.productId}
         pointX={posX}
@@ -28,7 +27,7 @@ const ProductList = ({ item, onClick }) => {
           height="32"
         />
         {selected && (
-          <ProductTooltip
+          <Tooltip
             id={product.productId}
             name={product.productName}
             imageUrl={product.imageUrl}
@@ -39,14 +38,14 @@ const ProductList = ({ item, onClick }) => {
             discountRate={product.discountRate}
           />
         )}
-      </Product>
+      </ProductTag>
     );
   });
 
   return products;
 };
 
-const Product = styled.div`
+const ProductTag = styled.div`
   position: absolute;
   top: ${(props) => props.pointX}px;
   left: ${(props) => props.pointY}px;
@@ -56,4 +55,4 @@ const TagImg = styled.img`
   pointer-events: none;
 `;
 
-export default ProductList;
+export default TooltipList;

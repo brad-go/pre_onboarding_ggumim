@@ -3,24 +3,39 @@ import { useState, useEffect } from "react";
 import { ProductTooltip } from "@components/index";
 import styled from "styled-components";
 
-const ProductList = ({ item }) => {
+const ProductList = ({ item, onClick }) => {
   const { productList } = item;
-  console.log(productList);
 
   const products = productList.map((product) => {
-    console.log(product);
-    const { pointX, pointY } = product;
+    const { pointX, pointY, selected } = product;
 
     return (
-      <Product key={product.productId} pointX={pointX} pointY={pointY}>
-        <ProductTooltip
-          id={product.productId}
-          name={product.productName}
-          imageUrl={product.imageUrl}
-          outside={product.outside}
-          priceDiscount={product.priceDiscount}
-          discountRate={product.discountRate}
+      <Product
+        key={product.productId}
+        id={product.productId}
+        pointX={pointX}
+        pointY={pointY}
+        onClick={onClick}
+      >
+        <TagImg
+          src={
+            selected
+              ? "//cdn.ggumim.co.kr/storage/20211029145330GwwumnWNSs.png"
+              : "//cdn.ggumim.co.kr/storage/20211029145238AlZrQ41xtg.png"
+          }
+          width="32"
+          height="32"
         />
+        {selected && (
+          <ProductTooltip
+            id={product.productId}
+            name={product.productName}
+            imageUrl={product.imageUrl}
+            outside={product.outside}
+            priceDiscount={product.priceDiscount}
+            discountRate={product.discountRate}
+          />
+        )}
       </Product>
     );
   });
@@ -34,6 +49,10 @@ const Product = styled.div`
   left: ${(props) => props.pointX}px;
 `;
 
+const TagImg = styled.img`
+  pointer-events: none;
+`;
+
 const Room = () => {
   const [item, setItem] = useState({
     id: 0,
@@ -41,22 +60,32 @@ const Room = () => {
     productList: [],
   });
 
-  console.log(item);
+  const handleTagSelect = (e) => {
+    const itemId = e.target.id;
+    setItem((prev) => ({
+      ...prev,
+      productList: prev.productList.map((product) =>
+        product.productId === Number(itemId)
+          ? { ...product, selected: !product.selected }
+          : { ...product, selected: false }
+      ),
+    }));
+  };
 
   useEffect(() => {
     const getData = async () => {
       const { id, imageUrl, productList } = await getAPI();
-      // const list = productList.map((product) => ({
-      //   ...product,
-      //   selected: false,
-      // }));
-      setItem({ id, imageUrl, productList });
+      const list = productList.map((product) => ({
+        ...product,
+        selected: false,
+      }));
+      setItem({ id, imageUrl, productList: list });
     };
     getData();
   }, []);
   return (
     <Roombox>
-      <ProductList item={item} />
+      <ProductList item={item} onClick={handleTagSelect} />
     </Roombox>
   );
 };

@@ -83,15 +83,14 @@ const ProductInfo = styled.div`
   padding-bottom: 2px;
   overflow: hidden;
   text-align: left;
-  letter-spacing: 0.8px;
+  letter-spacing: 0.5px;
 `;
 
 const FurnitureName = styled.div`
   width: 100%;
-  overflow: hidden;
   color: #333c45;
-  text-overflow: ellipsis;
   line-height: 1.3em;
+  overflow: hidden;
 `;
 
 const FurniturePrice = styled.div`

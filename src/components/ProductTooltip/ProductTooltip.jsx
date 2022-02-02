@@ -15,14 +15,14 @@ const ProductTooltip = ({
       <ProductInfo>
         <FurnitureName>{name}</FurnitureName>
         <FurniturePrice>
-          {outside ? (
-            <ExpectedPriceLabel>예상가</ExpectedPriceLabel>
-          ) : (
-            <PriceDiscount>
+          <PriceDiscount>
+            {outside ? (
+              <ExpectedPriceLabel>예상가</ExpectedPriceLabel>
+            ) : (
               <DiscountRate>{discountRate + "%"}</DiscountRate>
-              {numberWithCommas(priceDiscount)}
-            </PriceDiscount>
-          )}
+            )}
+            {numberWithCommas(priceDiscount)}
+          </PriceDiscount>
         </FurniturePrice>
       </ProductInfo>
       <MoveIconWrapper>

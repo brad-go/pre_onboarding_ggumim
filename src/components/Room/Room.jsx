@@ -8,8 +8,11 @@ const ProductList = ({ item }) => {
   console.log(productList);
 
   const products = productList.map((product) => {
+    console.log(product);
+    const { pointX, pointY } = product;
+
     return (
-      <Item key={product.productId}>
+      <Product key={product.productId} pointX={pointX} pointY={pointY}>
         <ProductTooltip
           id={product.productId}
           name={product.productName}
@@ -18,14 +21,18 @@ const ProductList = ({ item }) => {
           priceDiscount={product.priceDiscount}
           discountRate={product.discountRate}
         />
-      </Item>
+      </Product>
     );
   });
 
   return products;
 };
 
-const Item = styled.div``;
+const Product = styled.div`
+  position: absolute;
+  top: ${(props) => props.pointY}px;
+  left: ${(props) => props.pointX}px;
+`;
 
 const Room = () => {
   const [item, setItem] = useState({

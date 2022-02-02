@@ -104,6 +104,8 @@ section {
   display: block;
 }
 body {
+  width: 100%;
+  height: 100%;
   line-height: 1;
 }
 ol,
@@ -113,8 +115,6 @@ ul {
 
 html,
 body {
-  padding: 0;
-  margin: 0;
   font-family: -apple-system, Helvetica Neue, sans-serif;
 }
 

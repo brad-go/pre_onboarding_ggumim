@@ -56,7 +56,7 @@ const Room = () => {
         <TooltipList item={item} onClick={handleTagSelect} />
       </RoomWrapper>
       <RoomSwiper>
-        <Swiper item={item.productList} />
+        <Swiper item={item.productList} onClick={handleTagSelect} />
       </RoomSwiper>
     </RoomContainer>
   );
@@ -86,7 +86,6 @@ const RoomSwiper = styled.div`
   overflow-y: hidden;
   overflow-x: auto;
   padding: 0 10px;
-  // touch-action: pan-y;
 `;
 
 export default Room;

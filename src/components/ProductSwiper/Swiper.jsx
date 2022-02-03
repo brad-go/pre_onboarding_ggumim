@@ -1,16 +1,34 @@
+import { useState, useRef } from "react";
+import { BADGE_IMG } from "@utils/constants";
 import styled, { css } from "styled-components";
 
-const Swiper = ({ item }) => {
+const SwiperList = ({ item, onClick }) => {
   const swiperItems = item.map((swiperItem) => {
-    const { productId, imageUrl, selected } = swiperItem;
-    console.log(productId, imageUrl, selected);
+    const { productId, imageUrl, selected, discountRate } = swiperItem;
+
     return (
-      <SwiperItem selected={selected}>
-        <ItemImg imageUrl={imageUrl}></ItemImg>
+      <SwiperItem
+        key={productId}
+        id={productId}
+        selected={selected}
+        onClick={onClick}
+      >
+        <SwiperItemImg imageUrl={imageUrl}>
+          {discountRate && <Badge>{discountRate}%</Badge>}
+        </SwiperItemImg>
       </SwiperItem>
     );
   });
-  return <SwiperWrapper>{swiperItems}</SwiperWrapper>;
+
+  return swiperItems;
+};
+
+const Swiper = ({ item, onClick }) => {
+  return (
+    <SwiperWrapper>
+      <SwiperList item={item} onClick={onClick} />
+    </SwiperWrapper>
+  );
 };
 
 const SwiperWrapper = styled.div`
@@ -22,6 +40,9 @@ const SwiperWrapper = styled.div`
   box-sizing: content-box;
   transition-property: transform;
   z-index: 1;
+  overflow-x: auto;
+  overflow-y: hidden;
+  touch-action: pan-y;
 `;
 
 const SwiperItem = styled.div`
@@ -30,28 +51,47 @@ const SwiperItem = styled.div`
   width: fit-content;
   height: fit-content;
   margin: 28px 6px;
-  ${(props) => {
+  cursor: pointer;
+  ${(props) =>
     props.selected &&
-      css`
-        background: linear-gradient(163.54deg, #ff659e 8.22%, #f56b30 94.1%);
-        margin: 26px 4px;
-        padding: 2px;
-        border-radius: 18px;
-      `;
-  }}
+    css`
+      background: linear-gradient(163.54deg, #ff659e 8.22%, #f56b30 94.1%);
+      margin: 26px 4px;
+      padding: 2px;
+      border-radius: 18px;
+    `}
 `;
 
-const ItemImg = styled.div`
+const SwiperItemImg = styled.div`
   position: relative;
   width: 106px;
   height: 106px;
   border-radius: 16px;
   border: 0.5px solid #aaafb9;
   user-select: none;
+  pointer-events: none;
   background-image: url(${(props) => props.imageUrl});
   background-position: center;
   background-size: cover;
   backgroun-repeat: no-repeat;
+`;
+
+const Badge = styled.div`
+  position: absolute;
+  top: 0;
+  right: 5px;
+  background-image: url(${BADGE_IMG});
+  width: 24px;
+  height: 28px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 25px;
+  color: white;
+  text-align: center;
+  padding-left: 1px;
 `;
 
 export default Swiper;

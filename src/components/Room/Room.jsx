@@ -86,6 +86,7 @@ const RoomSwiper = styled.div`
   overflow-y: hidden;
   overflow-x: auto;
   padding: 0 10px;
+  touch-action: pan-y;
 `;
 
 export default Room;

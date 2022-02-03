@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { BADGE_IMG } from "@utils/constants";
 import styled, { css } from "styled-components";
 
@@ -24,8 +24,42 @@ const SwiperList = ({ item, onClick }) => {
 };
 
 const Swiper = ({ item, onClick }) => {
+  const [isDrag, setIsDrag] = useState(false);
+  const [startX, setStartX] = useState();
+  const swiperRef = useRef(null);
+
+  const onDragStart = (e) => {
+    // 요소가 선택되는 것 방지
+    e.preventDefault();
+    setIsDrag(true);
+    // 현재 클릭한 page의 위치 + 움직인 스크롤의 길이
+    // 스크롤이 이동된 상태에서 클릭 시, 브라우저 width의 pageX값이 설정되어
+    // 순간적으로 앞쪽으로 스크롤 되는 것을 방지하기 위해 scrollLeft값을 더해 현재 x의 위치 계산
+    // element.scrollLeft : 콘텐츠가 왼쪽 가장자리에서 스크롤되는 픽셀 수를 가져오거나 설정
+    setStartX(e.pageX + swiperRef.current.scrollLeft);
+  };
+
+  const onDragEnd = (e) => {
+    setIsDrag(false);
+  };
+
+  const onDragMove = (e) => {
+    if (isDrag) {
+      swiperRef.current.scrollLeft = startX - e.pageX;
+    }
+  };
+
   return (
-    <SwiperWrapper>
+    <SwiperWrapper
+      ref={swiperRef}
+      onMouseDown={onDragStart}
+      onMouseUp={onDragEnd}
+      onMouseLeave={onDragEnd}
+      // 클릭 여부와 상관없이 요소 위에만 위치하면 발생하는 걸 방지하기 위해 작성
+      // onMouseMove={isDrag && onDragMove}로 작성하면 동작은 하지만 오류 발생
+      onMouseMove={isDrag ? onDragMove : null}
+      // onMouseMove={isDrag && onDragMove}
+    >
       <SwiperList item={item} onClick={onClick} />
     </SwiperWrapper>
   );
@@ -39,10 +73,8 @@ const SwiperWrapper = styled.div`
   height: 100%;
   box-sizing: content-box;
   transition-property: transform;
+  overflow-x: hidden;
   z-index: 1;
-  overflow-x: auto;
-  overflow-y: hidden;
-  touch-action: pan-y;
 `;
 
 const SwiperItem = styled.div`

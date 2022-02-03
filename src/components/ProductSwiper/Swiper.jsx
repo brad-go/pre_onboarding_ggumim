@@ -1,51 +1,49 @@
-import { useState, useRef, useEffect } from "react";
-import { BADGE_IMG } from "@utils/constants";
-import styled, { css } from "styled-components";
-
-const SwiperList = ({ item, onClick }) => {
-  const swiperItems = item.map((swiperItem) => {
-    const { productId, imageUrl, selected, discountRate } = swiperItem;
-
-    return (
-      <SwiperItem
-        key={productId}
-        id={productId}
-        selected={selected}
-        onClick={onClick}
-      >
-        <SwiperItemImg imageUrl={imageUrl}>
-          {discountRate && <Badge>{discountRate}%</Badge>}
-        </SwiperItemImg>
-      </SwiperItem>
-    );
-  });
-
-  return swiperItems;
-};
+import { useState, useRef } from "react";
+import SwiperList from "./SwiperList";
+import styled from "styled-components";
 
 const Swiper = ({ item, onClick }) => {
-  const [isDrag, setIsDrag] = useState(false);
-  const [startX, setStartX] = useState();
+  const initialPos = [];
   const swiperRef = useRef(null);
 
+  const [isDrag, setIsDrag] = useState(false);
+  const [posX, setPosX] = useState(initialPos);
+
   const onDragStart = (e) => {
-    // 요소가 선택되는 것 방지
     e.preventDefault();
     setIsDrag(true);
-    // 현재 클릭한 page의 위치 + 움직인 스크롤의 길이
-    // 스크롤이 이동된 상태에서 클릭 시, 브라우저 width의 pageX값이 설정되어
-    // 순간적으로 앞쪽으로 스크롤 되는 것을 방지하기 위해 scrollLeft값을 더해 현재 x의 위치 계산
-    // element.scrollLeft : 콘텐츠가 왼쪽 가장자리에서 스크롤되는 픽셀 수를 가져오거나 설정
-    setStartX(e.pageX + swiperRef.current.scrollLeft);
   };
 
-  const onDragEnd = (e) => {
+  const onDragEnd = () => {
     setIsDrag(false);
+    // swiperRef 의 이동된 거리 구하기
+    const distance = swiperRef.current.style.transform.replace(
+      /[^-?0-9]/g,
+      " "
+    );
+
+    // 왼쪽이나 오른쪽으로 너무 넘어가지 못하도록 마우스를 뗐을 때 위치 되돌리기
+    if (distance < 0) {
+      swiperRef.current.style.transform = `translateX(-50px)`;
+    } else {
+      swiperRef.current.style.transform = `translateX(0px)`;
+    }
+
+    // swiperRef의 저장된 위치와 초기화
+    setPosX(initialPos);
   };
 
   const onDragMove = (e) => {
+    // 드래그 시작점과 마지막점을 입력받고 시작점에서 마지막점을 빼서 거리를 구함
+    setPosX([...posX, e.clientX]);
+    const startX = posX.shift();
+    const endX = posX.pop();
+    const distance = startX - endX;
+
     if (isDrag) {
-      swiperRef.current.scrollLeft = startX - e.pageX;
+      distance >= 0
+        ? (swiperRef.current.style.transform = `translateX(-${distance}px)`)
+        : (swiperRef.current.style.transform = `translateX(${-distance}px)`);
     }
   };
 
@@ -73,57 +71,8 @@ const SwiperWrapper = styled.div`
   height: 100%;
   box-sizing: content-box;
   transition-property: transform;
-  overflow-x: hidden;
+  transition-duration: 300ms;
   z-index: 1;
-`;
-
-const SwiperItem = styled.div`
-  display: inline-flex;
-  justify-content: center;
-  width: fit-content;
-  height: fit-content;
-  margin: 28px 6px;
-  cursor: pointer;
-  ${(props) =>
-    props.selected &&
-    css`
-      background: linear-gradient(163.54deg, #ff659e 8.22%, #f56b30 94.1%);
-      margin: 26px 4px;
-      padding: 2px;
-      border-radius: 18px;
-    `}
-`;
-
-const SwiperItemImg = styled.div`
-  position: relative;
-  width: 106px;
-  height: 106px;
-  border-radius: 16px;
-  border: 0.5px solid #aaafb9;
-  user-select: none;
-  pointer-events: none;
-  background-image: url(${(props) => props.imageUrl});
-  background-position: center;
-  background-size: cover;
-  backgroun-repeat: no-repeat;
-`;
-
-const Badge = styled.div`
-  position: absolute;
-  top: 0;
-  right: 5px;
-  background-image: url(${BADGE_IMG});
-  width: 24px;
-  height: 28px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  font-size: 11px;
-  font-weight: bold;
-  line-height: 25px;
-  color: white;
-  text-align: center;
-  padding-left: 1px;
 `;
 
 export default Swiper;

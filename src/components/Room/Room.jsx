@@ -12,11 +12,11 @@ const Room = () => {
   });
 
   const handleProductSelect = (e) => {
-    const itemId = e.target.id;
+    const selectedProductId = Number(e.target.id);
     setData((prev) => ({
       ...prev,
       productList: prev.productList.map((product) =>
-        product.productId === Number(itemId)
+        product.productId === selectedProductId
           ? { ...product, selected: !product.selected }
           : { ...product, selected: false }
       ),

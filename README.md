@@ -49,7 +49,7 @@
 
 #### Tooltip
 
-<img src="./images/tooltip.gif" alt="tooltip 구현사항 영상" width="60%">
+<img src="https://user-images.githubusercontent.com/68905615/152481626-b22bdf3d-f423-4df8-bfaf-467754874985.gif" alt="tooltip" width="60%">
 
 - [x] 가구 정보가 있는 곳에 돋보기 모양의 버튼을 표시
 - [x] 돋보기를 클릭하면 상품정보 tooltip 출력되면서 돋보기모양이 닫기 버튼으로 변경
@@ -61,7 +61,7 @@
 
 #### 하단 가구 목록
 
-<img src="./images/list.gif" alt="하단 가구목록 구현사항 영상" width="70%">
+<img src="https://user-images.githubusercontent.com/68905615/152481628-9f984bb2-2ba2-42cd-8b9e-6ab640962240.gif" alt="하단 가구 목록" width="70%">
 
 - [x] 선택된 가구는 선택되었으면 표시
 - [x] 할인율이 존재하는 경우에는 상단에 할인율(discountRate) 표시

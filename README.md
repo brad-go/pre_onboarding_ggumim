@@ -1,70 +1,73 @@
-# Getting Started with Create React App
+# 원티드 프리온보딩 기업과제<br>사진과 가구 정보를 조합하는 컴포넌트 구현하기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## :rocket: 배포
 
-## Available Scripts
+:link: **과제물**(Netlify): https://brad-go-ggumim.netlify.app
 
-In the project directory, you can run:
+## :date: 제작 기간 & 참여 인원
 
-### `npm start`
+- 2022년 2월 2일 ~ 4일
+- 개인 프로젝트
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🪄 프로젝트 실행 방법
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+1. git clone하여 프로젝트를 내려받습니다.
+   ```
+   git clone https://github.com/OnBoarding-Park-is-best/week1-adm_product_add.git
+   ```
+2. 아래 커맨드로 패키지를 설치합니다.
+   ```
+   npm install
+   ```
+3. 아래 커맨드로 프로젝트를 실행합니다.
+   ```
+   npm start
+   ```
 
-### `npm test`
+## :open_file_folder: 디렉토리 구조
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+.
+├── public
+└──  src
+      ├── api                 # api를 가져오는 함수
+      ├── components
+      │   ├── ProductSwiper   # 하단 상품 목록 컴포넌트
+      │   ├── ProductTooltip  # 가구 정보 tooltip 컴포넌트
+      │   └── Room            # 방 사진과 정보를 가져오는 컴포넌트
+      ├── styles
+      └── utils               # api, 상수, 함수 정보를 가지고 있는 폴더
+```
 
-### `npm run build`
+## 🧰 기술 스택 및 구현 사항
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### :wrench: 기술 스택
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E) ![](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### 📚 기능 구현 사항
 
-### `npm run eject`
+#### Tooltip
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+<img src="./images/tooltip.gif" alt="tooltip 구현사항 영상" width="60%">
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- [x] 가구 정보가 있는 곳에 돋보기 모양의 버튼을 표시
+- [x] 돋보기를 클릭하면 상품정보 tooltip 출력되면서 돋보기모양이 닫기 버튼으로 변경
+- [x] 닫기 버튼을 클릭하면 tool tip을 없애고 돋보기 버튼으로 변경
+- [x] tool tip은 하나만 노출. tooltip이 노출되고 있는 상태에서 다른 가구를 선택하면 노출되고 있던 tooltip은 닫히고 새로 클릭한 가구 tooltip만 노출
+- [x] 가구 입점 여부에 따른 툴팁 표시 방식 변경
+  - 입점되어 있는 가구 (상품 이미지, 상품명, 할인율, 가격)
+  - 입점되지 않은 가구 (상품 이미지, 상품명, 예상 가격)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+#### 하단 가구 목록
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+<img src="./images/list.gif" alt="하단 가구목록 구현사항 영상" width="70%">
 
-## Learn More
+- [x] 선택된 가구는 선택되었으면 표시
+- [x] 할인율이 존재하는 경우에는 상단에 할인율(discountRate) 표시
+- [x] 하단에 있는 상품목록에서 해당 가구가 선택되었으면 tooltip 출력
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  ##### 추가 구현 사항
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  - [x] 마우스 드래그에 의한 스크롤 기능
+  - [x] 너무 많이 드래그 했을 경우 스크롤 한계치까지 되돌리기

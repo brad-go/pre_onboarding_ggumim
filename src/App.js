@@ -1,11 +1,7 @@
 import { Room } from "@components/";
 
 function App() {
-  return (
-    <>
-      <Room />
-    </>
-  );
+  return <Room />;
 }
 
 export default App;

@@ -1,34 +1,43 @@
 import { Tooltip } from "@components/ProductTooltip/index.js";
-import styled from "styled-components";
 import { TAG_ICON, TAG_ICON_CLOSE } from "@utils/constants";
+import styled from "styled-components";
 
-const TooltipList = ({ item, onClick }) => {
-  const { productList } = item;
-
+const TooltipList = ({ productList, onClick }) => {
   const products = productList.map((product) => {
-    const { pointX, pointY, selected } = product;
+    const {
+      productId,
+      productName,
+      imageUrl,
+      outside,
+      priceDiscount,
+      discountRate,
+      pointX,
+      pointY,
+      selected,
+    } = product;
+
     const posX = pointX * 1.6;
     const posY = pointY * 1.7;
 
     return (
       <ProductTag
-        key={product.productId}
-        id={product.productId}
+        key={productId}
+        id={productId}
         pointX={posX}
-        pointY={product.productId === 127757 ? posY * 0.96 : posY}
+        pointY={productId === 127757 ? posY * 0.96 : posY}
         onClick={onClick}
       >
         <TagImg src={selected ? TAG_ICON : TAG_ICON_CLOSE} />
         {selected && (
           <Tooltip
-            id={product.productId}
-            name={product.productName}
-            imageUrl={product.imageUrl}
-            outside={product.outside}
+            id={productId}
+            name={productName}
+            imageUrl={imageUrl}
+            outside={outside}
             pointX={posX}
             pointY={posY}
-            priceDiscount={product.priceDiscount}
-            discountRate={product.discountRate}
+            priceDiscount={priceDiscount}
+            discountRate={discountRate}
           />
         )}
       </ProductTag>

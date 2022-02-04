@@ -1,19 +1,19 @@
-import { getAPI } from "@api";
 import { useState, useEffect } from "react";
+import { getAPI } from "@api";
 import { TooltipList } from "@components/ProductTooltip/index";
 import { Swiper } from "@components/ProductSwiper/index";
 import styled from "styled-components";
 
 const Room = () => {
-  const [item, setItem] = useState({
+  const [data, setData] = useState({
     id: 0,
     imageUrl: "",
     productList: [],
   });
 
-  const handleTagSelect = (e) => {
+  const handleProductSelect = (e) => {
     const itemId = e.target.id;
-    setItem((prev) => ({
+    setData((prev) => ({
       ...prev,
       productList: prev.productList.map((product) =>
         product.productId === Number(itemId)
@@ -23,8 +23,8 @@ const Room = () => {
     }));
   };
 
-  const handleTagSelectReset = (e) => {
-    setItem((prev) => ({
+  const handleProductSelectReset = () => {
+    setData((prev) => ({
       ...prev,
       productList: prev.productList.map((product) => ({
         ...product,
@@ -36,11 +36,11 @@ const Room = () => {
   useEffect(() => {
     const getData = async () => {
       const { id, imageUrl, productList } = await getAPI();
-      const list = productList.reverse().map((product) => ({
+      const attr = productList.reverse().map((product) => ({
         ...product,
         selected: false,
       }));
-      setItem({ id, imageUrl, productList: list });
+      setData({ id, imageUrl, productList: attr });
     };
     getData();
   }, []);
@@ -49,14 +49,17 @@ const Room = () => {
     <RoomContainer>
       <RoomWrapper>
         <RoomImg
-          src={item.imageUrl}
+          src={data.imageUrl}
           alt="방사진"
-          onClick={handleTagSelectReset}
+          onClick={handleProductSelectReset}
         />
-        <TooltipList item={item} onClick={handleTagSelect} />
+        <TooltipList
+          productList={data.productList}
+          onClick={handleProductSelect}
+        />
       </RoomWrapper>
       <RoomSwiper>
-        <Swiper item={item.productList} onClick={handleTagSelect} />
+        <Swiper productList={data.productList} onClick={handleProductSelect} />
       </RoomSwiper>
     </RoomContainer>
   );

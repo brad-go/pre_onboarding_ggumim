@@ -1,9 +1,9 @@
 import { BADGE_IMG } from "@utils/constants";
 import styled, { css } from "styled-components";
 
-const SwiperList = ({ item, onClick }) => {
-  const swiperItems = item.map((swiperItem) => {
-    const { productId, imageUrl, selected, discountRate } = swiperItem;
+const SwiperList = ({ productList, onClick }) => {
+  const swiperItems = productList.map((product) => {
+    const { productId, imageUrl, selected, discountRate } = product;
 
     return (
       <SwiperItem

@@ -1,4 +1,5 @@
-import { numberWithCommas, MOVE_ARROW, TOOLTIP_ARROW } from "@utils/constants";
+import { numberWithCommas } from "@utils/functions";
+import { MOVE_ARROW, TOOLTIP_ARROW } from "@utils/constants";
 import styled, { css } from "styled-components";
 
 const Tooltip = ({

@@ -1,7 +1,3 @@
-export const numberWithCommas = (num) => {
-  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-};
-
 export const MOVE_ARROW =
   "//cdn.ggumim.co.kr/storage/20211102181936xqHzyWAmb8.png";
 
